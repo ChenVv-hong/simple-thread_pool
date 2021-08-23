@@ -39,7 +39,7 @@ public:
 	//单个取出
 	void Take(T & t){
 		std::unique_lock<std::mutex> lock(m);
-		is_take.wait(m,[this](){return !isEmpty() || is_stop;});
+		is_take.wait(lock,[this](){return !isEmpty() || is_stop;});
 		if(is_stop) return;
 		t = my_queue.front();
 		my_queue.pop_front();
